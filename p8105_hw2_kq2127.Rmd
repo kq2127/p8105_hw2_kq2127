@@ -1,0 +1,7 @@
+---
+title: "p8105_hw2_kq2127"
+author: "Kristal Quispe"
+date: "9/29/2019"
+output: github_document
+---
+
