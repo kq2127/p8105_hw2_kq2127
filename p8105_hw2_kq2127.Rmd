@@ -64,7 +64,9 @@ precip_dt =
 pm_dt = read_csv(file="./data/pols-month.csv") %>% 
   janitor::clean_names() %>% 
   separate(mon, into = c("year", "month", "day"), sep = "-") %>% 
-  mutate( month.name["month"]) ##isnt converting to month name
+  mutate(month.name[month]) ##isnt converting to month name
+ ## pivot_longer(
+    
 
 pm_dt
 ```
