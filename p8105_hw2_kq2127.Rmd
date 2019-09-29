@@ -59,3 +59,13 @@ precip_dt =
 ```
 
 ## Problem 2
+
+```{r}
+pm_dt = read_csv(file="./data/pols-month.csv") %>% 
+  janitor::clean_names() %>% 
+  separate(mon, into = c("year", "month", "day"), sep = "-") %>% 
+  mutate( month.name["month"]) ##isnt converting to month name
+
+pm_dt
+```
+
