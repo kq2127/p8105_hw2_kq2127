@@ -23,11 +23,39 @@ prob1_data =
     path = "./data/HealthyHarborWaterWheel.xlsx",
     sheet = "Mr. Trash Wheel",
     range ="A2:N336") %>% 
-    janitor::clean_names() %>% 
-    drop_na(dumpster)
+  janitor::clean_names() %>% 
+  drop_na(dumpster)
 ##need to add round and as.integer.
 ##more room for text/code
-    
-  
+ 
 ```
 
+Read, clean and combine 2017-2018 Precipitation data
+
+```{r}
+precip17_dt = 
+  read_excel(
+    path = "./data/HealthyHarborWaterWheel.xlsx",
+    sheet = "2017 Precipitation",
+    range = "A2:B14") %>% 
+  janitor::clean_names() %>% 
+  drop_na(month) %>% 
+  mutate(year = 2017)
+
+precip18_dt = 
+  read_excel(
+    path = "./data/HealthyHarborWaterWheel.xlsx",
+    sheet = "2018 Precipitation",
+    range = "A2:B14") %>% 
+  janitor::clean_names() %>% 
+  drop_na(total) %>% 
+  mutate(year = 2018)
+
+precip_dt =
+  bind_rows(
+    precip17_dt,precip18_dt) %>%
+  janitor::clean_names()
+##Need to add month name
+```
+
+## Problem 2
