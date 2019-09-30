@@ -24,9 +24,8 @@ prob1_data =
     sheet = "Mr. Trash Wheel",
     range ="A2:N336") %>% 
   janitor::clean_names() %>% 
-  drop_na(dumpster)
-##need to add round and as.integer.
-##more room for text/code
+  drop_na(dumpster) %>% 
+  mutate(sports_balls = as.integer(round(sports_balls)))
  
 ```
 
@@ -39,7 +38,7 @@ precip17_dt =
     sheet = "2017 Precipitation",
     range = "A2:B14") %>% 
   janitor::clean_names() %>% 
-  drop_na(month) %>% 
+  drop_na(total) %>% 
   mutate(year = 2017)
 
 precip18_dt = 
@@ -54,8 +53,8 @@ precip18_dt =
 precip_dt =
   bind_rows(
     precip17_dt,precip18_dt) %>%
-  janitor::clean_names()
-##Need to add month name
+  janitor::clean_names() %>% 
+  mutate(month=month.name[month])
 ```
 
 ## Problem 2
@@ -64,10 +63,9 @@ precip_dt =
 pm_dt = read_csv(file="./data/pols-month.csv") %>% 
   janitor::clean_names() %>% 
   separate(mon, into = c("year", "month", "day"), sep = "-") %>% 
-  mutate(month.name[month]) ##isnt converting to month name
- ## pivot_longer(
+  mutate(month = month.abb[month]) 
+ ## pivot longer maybe 
     
-
 pm_dt
 ```
 
