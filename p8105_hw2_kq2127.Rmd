@@ -63,10 +63,19 @@ precip_dt =
 pm_dt = read_csv(file="./data/pols-month.csv") %>% 
   janitor::clean_names() %>% 
   separate(mon, into = c("year", "month", "day"), sep = "-") %>% 
-  mutate(month = as.numeric(month), year = as.numeric(year), day = as.numeric(day)) %>% 
-  mutate(month = month.name[month]) 
- ## pivot longer maybe 
-    
+  mutate(
+    month = month.name[as.numeric(month)],
+    year = as.numeric(year)) %>% 
+  select(year, month, prez_gop, prez_dem, everything(), -day) %>% 
+  pivot_longer(
+    prez_gop:prez_dem,
+    names_to = "president",
+    names_prefix = "prez_",
+    values_to = "value") %>% 
+  filter(value == 1) %>% 
+  select(year, month, president, everything(), -value)
+
 pm_dt
+
 ```
 
