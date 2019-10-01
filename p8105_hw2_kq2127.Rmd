@@ -54,7 +54,7 @@ precip_dt =
   bind_rows(
     precip17_dt,precip18_dt) %>%
   janitor::clean_names() %>% 
-  mutate(month=month.name[month])
+  mutate(month = month.name[month])
 ```
 
 ## Problem 2
@@ -114,4 +114,16 @@ pb2_dt = left_join(fj_dt, une_dt, by = c("year", "month"))
 
 pb2_dt
 ```
+
+## Problem 3
+
+```{r}
+babynames_dt = read_csv(file="./data/Popular_Baby_Names.csv") %>% 
+  janitor::clean_names()
+  ##mutate(childs_first_name = capitalize_str(tolower(childs_first_name))) trying to capatilize first letter of word only
+         
+
+babynames_dt
+```
+
 
