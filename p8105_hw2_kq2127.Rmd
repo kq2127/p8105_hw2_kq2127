@@ -75,7 +75,6 @@ pm_dt = read_csv(file="./data/pols-month.csv") %>%
   filter(value == 1) %>% 
   select(year, month, president, everything(), -value)
 
-pm_dt
 
 snp_dt = read_csv(file="./data/snp.csv") %>% 
   janitor::clean_names() %>% 
@@ -85,16 +84,34 @@ snp_dt = read_csv(file="./data/snp.csv") %>%
     year = as.numeric(year)) %>% 
   select(year, month, everything(), -day)
 
-snp_dt
 
 une_dt = read_csv(file="./data/unemployment.csv") %>% 
   janitor::clean_names() %>% 
   pivot_longer(
     jan:dec,
     names_to = "month",
-    values_to = "unemployment")  
-  #mutate(month = month.name[month]) need to switch from abreviation to full name to merge data sets.
+    values_to = "unemployment") %>% 
+  mutate(
+    month = recode(
+      month,
+      "jan" = "January",
+      "feb" = "February",
+      "mar" = "March",
+      "apr" = "April",
+      "may" = "May",
+      "jun" = "June",
+      "jul" = "July",
+      "aug" = "August",
+      "sep" = "September",
+      "oct" = "October",
+      "nov" = "November",
+      "dec" = "December"))
 
-une_dt
+
+fj_dt = left_join(pm_dt, snp_dt, by = c("year", "month"))
+
+pb2_dt = left_join(fj_dt, une_dt, by = c("year", "month"))
+
+pb2_dt
 ```
 
